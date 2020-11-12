@@ -1,0 +1,25 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" [disabled]="this.insurances === undefined">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>{{ 'HOME.TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button [disabled]="this.insurances === undefined" tab="gap">
+      <ion-icon name="pie"></ion-icon>
+      <ion-label>{{ 'GAP.TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="playlist" [disabled]="this.insurances === undefined || this.insurances.length === 0">
+      <ion-icon name="switch"></ion-icon>
+      <ion-label>{{ 'PLAYLIST.TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile">
+      <ion-icon name="contact"></ion-icon>
+      <ion-label>{{ 'PROFILE.TITLE' | translate }}</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

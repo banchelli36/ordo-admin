@@ -1,0 +1,200 @@
+<ion-header>
+    <ion-toolbar color="light" mode="md">
+        <ion-title>
+            {{ 'HOME.ADD_INSURANCE_LBL' | translate }}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="modalCtrl.dismiss()">{{ 'GENERAL.BACK_BTN' | translate }}</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-list class="ion-no-padding">
+        <ion-item-group>
+            <ion-item-divider>
+                <ion-label class="ion-text-wrap" [innerHTML]="this.getInformationTitle(this.insuranceType)"></ion-label>
+            </ion-item-divider>
+        </ion-item-group>
+    </ion-list>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="3"></ion-col>
+            <ion-col size="6">
+                <ion-img *ngIf="this.getExamplePic() !== ''"
+                         [src]="this.getExamplePic()" alt="Sample Image for your reference."
+                         (click)="this.showExampleImg(this.getExamplePic())"></ion-img>
+            </ion-col>
+            <ion-col size="3"></ion-col>
+        </ion-row>
+    </ion-grid>
+    <form [formGroup]="yearFormGroup"
+          id="year1">
+        <ion-item id="yearInput1">
+            <ion-label position="floating">
+                {{ 'ADD.YEAR1_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="year" type="number"></ion-input>
+        </ion-item>
+    </form>
+    <ion-button (click)="takePhoto()"
+                *ngIf="customForms == undefined" expand="block"
+                [disabled]="!this.yearFormGroup.valid">
+        {{ 'ADD.PHOTO_BTN' | translate }}
+    </ion-button>
+    <ion-list *ngIf="customForms == undefined">
+        <ion-item *ngFor="let image of imageAsB64.keys()" class="no-inner-padding" detail="false">
+            <ion-label class="ion-text-wrap">{{ 'ADD.PHOTO_LBL' | translate: {title: image} }}</ion-label>
+            <ion-icon (click)="deletePhoto(image)" name="trash" slot="start"></ion-icon>
+        </ion-item>
+    </ion-list>
+    <ion-button (click)="startAbbyy()"
+                *ngIf="!(customForms == undefined)" expand="block"
+                [disabled]="!this.yearFormGroup.valid">
+        {{ 'ADD.REPEAT_SCAN_BTN' | translate}}
+    </ion-button>
+    <form *ngIf="this.yearFormGroup.valid && !(customForms == undefined) && (customForms[currentIndex].getFormGroup() == insuranceNumberFormGroup)"
+          [formGroup]="insuranceNumberFormGroup"
+          id="insuranceNumberForm">
+        <ion-item id="insuranceNumberInput">
+            <ion-label position="floating">
+                {{ 'ADD.INSURANCE_NUMBER_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="insuranceNumber" type="text"></ion-input>
+        </ion-item>
+    </form>
+
+    <form *ngIf="this.yearFormGroup.valid && !(customForms == undefined) && (customForms[currentIndex].getFormGroup() == addressFormGroup)"
+          [formGroup]="addressFormGroup"
+          id="addressForm">
+        <ion-item id="titleInput">
+            <ion-label position="floating">
+                {{ 'ADD.TITLE_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="title" type="text"></ion-input>
+        </ion-item>
+        <ion-item id="nameInput">
+            <ion-label position="floating">
+                {{ 'ADD.FULL_NAME_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="name" type="text"></ion-input>
+        </ion-item>
+        <ion-item id="streetInput">
+            <ion-label position="floating">
+                {{ 'ADD.STREET_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="street" type="text"></ion-input>
+        </ion-item>
+        <ion-item id="cityInput">
+            <ion-label position="floating">
+                {{ 'ADD.CITY_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="city" type="text"></ion-input>
+        </ion-item>
+    </form>
+
+    <form *ngIf="this.yearFormGroup.valid && !(customForms == undefined) &&
+    (customForms[currentIndex].getFormGroup() == pensionInformationFormGroup)"
+          [formGroup]="pensionInformationFormGroup"
+          id="pensionInformation">
+        <ion-item *ngIf="!(customForms == undefined) && customForms[currentIndex].getType() == 4"
+                  id="occInvalidityInput">
+            <ion-label position="floating">
+                {{ 'ADD.OCC_INVALIDITY_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="occInvalidity" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && (customForms[currentIndex].getType() == 1 ||
+                                          customForms[currentIndex].getType() == 4)" id="fullRecInput">
+            <ion-label position="floating">
+                {{ 'ADD.FULL_REC_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="fullRec" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && (customForms[currentIndex].getType() == 1 ||
+                                          customForms[currentIndex].getType() == 3 ||
+                                          customForms[currentIndex].getType() == 6)" id="currentPension">
+            <ion-label position="floating">
+                {{ 'ADD.CURRENT_PENSION_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="currentPension" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && (customForms[currentIndex].getType() == 1 ||
+                                          customForms[currentIndex].getType() == 3)" id="extrapolatedPension">
+            <ion-label position="floating">
+                {{ 'ADD.EXTRA_PENSION_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="extrapolatedPension" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && customForms[currentIndex].getType() == 4" id="widowPension">
+            <ion-label position="floating">
+                {{ 'ADD.WIDOW_PENSION_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="widowPension" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && customForms[currentIndex].getType() == 6" id="lastContributions">
+            <ion-label position="floating">
+                {{ 'ADD.LAST_CONTRIBUTIONS_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="lastContributions" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && customForms[currentIndex].getType() == 6" id="lastAmortizations">
+            <ion-label position="floating">
+                {{ 'ADD.LAST_AMORTIZATIONS_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="lastAmortizations" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && customForms[currentIndex].getType() == 6" id="lastReceivedBonus">
+            <ion-label position="floating">
+                {{ 'ADD.LAST_RECEIVED_BONUS_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="lastReceivedBonus" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && customForms[currentIndex].getType() == 6" id="lastRefundedBonus">
+            <ion-label position="floating">
+                {{ 'ADD.LAST_REFUNDED_BONUS_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="lastRefundedBonus" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && customForms[currentIndex].getType() == 6" id="bonuses">
+            <ion-label position="floating">
+                {{ 'ADD.BONUSES_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="bonuses" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!(customForms == undefined) && customForms[currentIndex].getType() == 6" id="contributions">
+            <ion-label position="floating">
+                {{ 'ADD.CONTRIBUTIONS_LBL' | translate }}
+            </ion-label>
+            <ion-input formControlName="contributions" type="number"></ion-input>
+        </ion-item>
+    </form>
+
+    <ion-button (click)="takeNextPhoto()"
+                *ngIf="this.yearFormGroup.valid && !(customForms == undefined) && !(currentIndex == customForms.length - 1)"
+                [disabled]="!customForms[currentIndex].getFormGroup().valid || !this.yearFormGroup.valid" expand="block"
+                id="nextPhotoBtn">
+        {{ 'ADD.NEXT_BTN' | translate }}
+    </ion-button>
+    <ion-button (click)="submitInputs()"
+                *ngIf="this.yearFormGroup.valid && !(customForms == undefined) && (currentIndex == customForms.length - 1)"
+                [disabled]="!customForms[currentIndex].getFormGroup().valid || !this.yearFormGroup.valid" expand="block"
+                id="submitBtn">
+        {{ 'ADD.SUBMIT_BTN' | translate }}
+    </ion-button>
+
+    <ion-button (click)="submitInputs()"
+                *ngIf="this.yearFormGroup.valid && customForms == undefined && this.imageAsB64.size !== 0"
+                [disabled]="!this.yearFormGroup.valid"
+                expand="block"
+                id="submitBtn2">
+        {{ 'ADD.SUBMIT_BTN' | translate }}
+    </ion-button>
+
+    <ion-fab horizontal="end"
+             vertical="center">
+        <ion-fab-button (click)="showInstructions()">
+            <ion-icon name="help"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

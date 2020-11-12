@@ -1,0 +1,31 @@
+<ion-header translucent>
+    <ion-toolbar color="light" mode="md">
+        <ion-buttons slot="secondary">
+            <ion-button (click)="authService.logout()">
+                <div>
+                    <ion-icon name="log-out"></ion-icon>
+                    <ion-label>{{ 'PROFILE.LOGOUT_BTN' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{ 'HOME.TITLE' | translate }}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="pageUtils.showHelp(translate.instant('HELP.HOME_TEXT'))">
+                <div>
+                    <ion-icon name="help-circle"></ion-icon>
+                    <ion-label>{{ 'PROFILE.HELP_BTN' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-router-outlet></ion-router-outlet>
+</ion-content>
+
+
+
+

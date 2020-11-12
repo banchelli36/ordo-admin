@@ -1,0 +1,112 @@
+<ion-header translucent>
+    <ion-toolbar color="light" mode="md">
+        <ion-buttons slot="secondary">
+            <ion-button (click)="authService.logout()">
+                <div>
+                    <ion-icon name="log-out"></ion-icon>
+                    <ion-label>{{ 'PROFILE.LOGOUT_BTN' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{ 'PLAYLIST.TITLE' | translate }}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="pageUtils.showHelp(translate.instant('HELP.PLAYLIST_TEXT'))">
+                <div>
+                    <ion-icon name="help-circle"></ion-icon>
+                    <ion-label>{{ 'PROFILE.HELP_BTN' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-card>
+            <ion-segment (ionChange)="setTab($event.detail.value)" mode="ios">
+                <ion-segment-button value="expenses" checked>
+                    <ion-label class="ion-text-wrap">
+                        <h2>{{ 'GENERAL.EXPENSES_LBL' | translate }}</h2>
+                        <p>{{expenditures | currency:'EUR': undefined:'1.0-0' }} {{ 'GENERAL.PER_MONTH_LBL' | translate }}</p>
+
+                    </ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="stocks">
+                    <ion-label class="ion-text-wrap">
+                        <h2>{{ 'PLAYLIST.STOCKS_SAVING_LBL' | translate }}</h2>
+                        <p>{{stocksSavingRate | currency:'EUR': undefined:'1.0-0' }} {{ 'GENERAL.PER_MONTH_LBL' | translate }}</p>
+                    </ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="interests">
+                    <ion-label class="ion-text-wrap">
+                        <h2>{{ 'PLAYLIST.INTEREST_SAVING_LBL' | translate }}</h2>
+                        <p>{{interestSavingRate | currency:'EUR': undefined:'1.0-0' }} {{ 'GENERAL.PER_MONTH_LBL' | translate }}</p>
+                    </ion-label>
+                </ion-segment-button>
+            </ion-segment>
+            <ion-range *ngIf="this.getTab() == 'expenses'" [(ngModel)]="expenditures" [max]="limit"
+                       color="secondary"
+                       min="0"
+                       pin="true" step="100"
+                       snaps="true" (ionChange)="setTrigger()">
+                <ion-icon (click)="expenditures = expenditures - 100" name="arrow-round-down" slot="start"></ion-icon>
+                <ion-icon (click)="expenditures = expenditures + 100" name="arrow-round-up" slot="end"></ion-icon>
+            </ion-range>
+            <ion-range *ngIf="this.getTab() == 'stocks'" [(ngModel)]="stocksSavingRate" color="secondary" max="1000"
+                       min="0"
+                       pin="true" step="25"
+                       snaps="true" (ionChange)="setTrigger()">
+                <!-- <ion-icon (click)="stocksSavingRate = stocksSavingRate - 25" name="arrow-round-down"
+                          slot="start"></ion-icon>
+                <ion-icon (click)="stocksSavingRate = stocksSavingRate + 25" name="arrow-round-up"
+                          slot="end"></ion-icon>
+            </ion-range>
+            <ion-range *ngIf="this.getTab() == 'interests'" [(ngModel)]="interestSavingRate" color="secondary"
+                       max="1000"
+                       min="0"
+                       pin="true"
+                       step="25"
+                       snaps="true" (ionChange)="setTrigger()">
+                <ion-icon (click)="interestSavingRate = interestSavingRate - 25" name="arrow-round-down"
+                          slot="start"></ion-icon>
+                <ion-icon (click)="interestSavingRate = interestSavingRate + 25" name="arrow-round-up"
+                          slot="end"></ion-icon> -->
+            </ion-range>
+        </ion-card>
+        <ion-card>
+            <ion-list>
+                <ion-item>
+                    <ion-label>
+                        {{ 'PLAYLIST.AGGREGATE_LBL' | translate }}
+                    </ion-label>
+                    <ion-badge color="success">
+                        + {{this.fullPlusPension.get(80) - this.fullPension.get(80) | currency:'EUR': undefined:'1.0-0' }}
+                    </ion-badge>
+                    <ion-badge color="primary">
+                        {{this.fullPlusPension.get(80) | currency:'EUR': undefined:'1.0-0' }}
+                    </ion-badge>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-label *ngIf="this.fullPlusPension.get(80) < this.expenditures">
+                        {{ 'PLAYLIST.MISSING_PENSION' | translate }}
+                    </ion-label>
+                    <ion-label *ngIf="this.fullPlusPension.get(80) >= this.expenditures">
+                        {{ 'PLAYLIST.PENSION_SURPLUS' | translate }}
+                    </ion-label>
+                    <ion-badge color="primary">
+                        {{ absolute(this.fullPlusPension.get(80) - this.expenditures) | currency:'EUR': undefined:'1.0-0' }}
+                    </ion-badge>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+        <!-- Chart initialization -->
+        <ion-card>
+            <ion-card-content>
+                <canvas #barCanvas height="400px"></canvas>
+            </ion-card-content>
+        </ion-card>
+
+    </ion-list>
+</ion-content>

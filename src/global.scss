@@ -1,0 +1,125 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+
+.subButton {
+  font-size: 14px;
+  text-transform: none;
+  color: #000;
+}
+
+.div-button {
+  height: 46px;
+}
+
+.plaintext {
+  color: #000000;
+  font-size: large;
+}
+
+
+ion-button div {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+  ion-icon {
+    font-size: 22px;
+  }
+
+  div.circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid;
+    line-height: 0;
+    position: relative;
+
+    div.circle-txt {
+      position: absolute;
+      bottom: 50%;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  ion-label {
+    font-size: 12px;
+    text-transform: none;
+  }
+}
+
+ion-item.no-inner-padding {
+  --inner-padding-end: 0px;
+}
+
+ion-item.left-indent {
+  --inner-padding-start: 10px;
+}
+
+ion-item-group {
+  margin-top: 10px;
+}
+
+ion-badge.fixed-width {
+  min-width: 72px;
+  max-width: 108px;
+  text-align: right;
+  margin-left: 15px;
+}
+
+ion-badge + ion-badge {
+  margin-left: 2px;
+}
+
+.big-icon {
+  height: 1.5em;
+  width: 1.5em;
+}
+
+ion-title {
+  line-height: 1.5em;
+  padding-left: 1.75em;
+  margin-left: 20px;
+  background-image: url('assets/icon/icon.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 1.5em;
+}
+
+ion-item-divider {
+  > ion-label {
+    font-weight: bold;
+    font-size: 16px !important;
+    color: black !important;
+  }
+}
+
+ion-label {
+  > h2 {
+    font-size: 14px !important;
+  }
+
+  > p {
+    font-size: 12px !important;
+  }
+}
+
+ion-label[slot="end"] {
+  text-align: right;
+}
+
+ion-segment-button {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  flex-grow: initial !important;
+  flex-shrink: initial !important;
+}

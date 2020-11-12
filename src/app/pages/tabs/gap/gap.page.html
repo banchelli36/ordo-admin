@@ -1,0 +1,89 @@
+<ion-header translucent>
+    <ion-toolbar color="light" mode="md">
+        <ion-buttons slot="secondary">
+            <ion-button (click)="authService.logout()">
+                <div>
+                    <ion-icon name="log-out"></ion-icon>
+                    <ion-label>{{ 'PROFILE.LOGOUT_BTN' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{ 'GAP.TITLE' | translate }}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="pageUtils.showHelp(translate.instant('HELP.GAP_TEXT'))">
+                <div>
+                    <ion-icon name="help-circle"></ion-icon>
+                    <ion-label>{{ 'PROFILE.HELP_BTN' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-list class="ion-no-padding">
+        <ion-item-group>
+            <ion-item-divider>
+                <ion-label class="ion-text-wrap">{{ 'GAP.AGGREGATE_LBL' | translate }}</ion-label>
+                <ion-badge class="fixed-width" color="primary" slot="end">
+                    {{ this.pension | currency:'EUR' }}
+                </ion-badge>
+            </ion-item-divider>
+            <ion-item class="no-inner-padding">
+                <ion-label class="ion-text-wrap">
+                    <h2>{{ 'GAP.INSURANCE_AGGREGATE_LBL' | translate }}</h2>
+                </ion-label>
+                <ion-label slot="end">
+                    <h2>
+                        {{ this.insurancePension | currency:'EUR' }}
+                    </h2>
+                </ion-label>
+            </ion-item>
+            <ion-item class="no-inner-padding">
+                <ion-label class="ion-text-wrap">
+                    <h2>{{ 'GAP.ASSETS_AGG_LBL' | translate }}</h2>
+                </ion-label>
+                <ion-label slot="end">
+                    <h2>
+                        {{ this.capitalPension | currency:'EUR' }}
+                    </h2>
+                </ion-label>
+            </ion-item>
+        </ion-item-group>
+        <ion-item-group>
+            <ion-item-divider>
+                <ion-label class="ion-text-wrap">{{ 'GAP.EXPENSES_LBL' | translate }}</ion-label>
+                <ion-badge class="fixed-width" color="primary" slot="end">
+                    {{ (this.profile == undefined ? 0 : this.profile.expenses) | currency:'EUR' }}
+                </ion-badge>
+            </ion-item-divider>
+        </ion-item-group>
+        <ion-item-group *ngIf="(this.pension - (this.profile == undefined ? 0 : this.profile.expenses)) >= 0">
+            <ion-item-divider>
+                <ion-label
+                        class="ion-text-wrap">{{ 'GAP.PENSION_SURPLUS' | translate: {pension_surplus: absolute(this.pension - (this.profile == undefined ? 0 : this.profile.expenses)) | currency:'EUR'} }}</ion-label>
+            </ion-item-divider>
+        </ion-item-group>
+        <ion-item-group *ngIf="(this.pension - (this.profile == undefined ? 0 : this.profile.expenses)) < 0">
+            <ion-item-divider>
+                <ion-label *ngIf="(this.pension - (this.profile == undefined ? 0 : this.profile.expenses)) < 0"
+                           class="ion-text-wrap">{{ 'PLAYLIST.MISSING_PENSION' | translate }}</ion-label>
+                <ion-badge class="fixed-width" color="primary" slot="end">
+                    {{ absolute(this.pension - (this.profile == undefined ? 0 : this.profile.expenses)) | currency:'EUR' }}
+                </ion-badge>
+            </ion-item-divider>
+            <ion-item class="no-inner-padding" lines="none">
+                <ion-label class="ion-text-wrap">
+                    <h2 [innerHTML]="this.translate.instant('GAP.MISSING_PENSION_PREFIX',
+                    {missing_pension: absolute(this.pension - (this.profile == undefined ? 0 : this.profile.expenses)) | currency:'EUR'})">
+                    </h2>
+                </ion-label>
+            </ion-item>
+            <ion-item lines="none">
+                <canvas #barCanvas></canvas>
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+</ion-content>

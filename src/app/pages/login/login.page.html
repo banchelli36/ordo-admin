@@ -1,0 +1,109 @@
+<ion-header translucent>
+    <ion-toolbar color="light" mode="md">
+        <ion-title>
+            {{ 'LOGIN.TITLE' | translate }}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button href="https://www.meindirk.de/video">
+                <div>
+                    <ion-icon name="play-circle"></ion-icon>
+                    <ion-label>{{ 'GENERAL.VIDEO_LBL' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form [formGroup]="loginFormGroup">
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.MAIL_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="email" [formControl]="mailCtrl"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.PASSWORD_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="password" [formControl]="passwordCtrl"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-button color="primary" [expand]="this.fingerPrintAvailable?undefined:'block'"
+                        size="default"
+                        (click)="login(false)" [disabled]="!loginFormGroup.valid">
+                {{'LOGIN.TITLE' | translate}}
+            </ion-button>
+            <ion-button fill="outline" size="default"
+                        *ngIf="this.fingerPrintAvailable"
+                        [disabled]="this.persistedUsername === undefined || this.mailCtrl.value.toLowerCase() !== this.persistedUsername"
+                        (click)="tryRememberLogin(true)">
+                <ion-icon color="primary" name="finger-print"></ion-icon>
+            </ion-button>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label class="ion-text-wrap">{{'LOGIN.REMEMBER_LBL' | translate}}</ion-label>
+            <ion-toggle [(ngModel)]="remember" [ngModelOptions]="{standalone: true}"></ion-toggle>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label class="ion-text-wrap">{{'LOGIN.REGISTER_LBL' | translate}}</ion-label>
+            <ion-button class="subButton ion-text-wrap" fill="clear"
+                        href="/login/register"
+                        routerDirection="forward">
+                {{'LOGIN.REGISTER_BTN' | translate}}
+            </ion-button>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label
+                    class="ion-text-wrap">{{'LOGIN.PASSWORD_RESET_LBL' | translate}}</ion-label>
+            <ion-button class="subButton ion-text-wrap" fill="clear"
+                        href="/login/reset-password"
+                        routerDirection="forward">
+                {{'LOGIN.PASSWORD_RESET_BTN' | translate}}
+            </ion-button>
+        </ion-item>
+    </form>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{ 'LOGIN.DUMMY_TITLE' | translate }}</ion-card-title>
+            <ion-card-subtitle class="ion-text-center">{{ 'LOGIN.DUMMY_SUBTITLE' | translate }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <ion-button (click)="dummyUser(30)" class="div-button ion-no-padding" fill="clear">
+                            <div>
+                                <ion-icon name="log-in"></ion-icon>
+                                <ion-label>{{ 'LOGIN.DUMMY_1_NAME' | translate }}</ion-label>
+                                <ion-label>{{ 'LOGIN.DUMMY_1_AGE' | translate }}</ion-label>
+                            </div>
+                        </ion-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button (click)="dummyUser(40)" class="div-button ion-no-padding" fill="clear">
+                            <div>
+                                <ion-icon name="log-in"></ion-icon>
+                                <ion-label>{{ 'LOGIN.DUMMY_2_NAME' | translate }}</ion-label>
+                                <ion-label>{{ 'LOGIN.DUMMY_2_AGE' | translate }}</ion-label>
+                            </div>
+                        </ion-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button (click)="dummyUser(50)" class="div-button ion-no-padding" fill="clear">
+                            <div>
+                                <ion-icon name="log-in"></ion-icon>
+                                <ion-label>{{ 'LOGIN.DUMMY_3_NAME' | translate }}</ion-label>
+                                <ion-label>{{ 'LOGIN.DUMMY_3_AGE' | translate }}</ion-label>
+                            </div>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-item lines="none">
+        <ion-note slot="end">{{'GENERAL.VERSION_LBL' | translate}}: {{this.version}}</ion-note>
+    </ion-item>
+</ion-content>

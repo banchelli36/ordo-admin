@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar color="light" mode="md">
+        <ion-buttons slot="primary">
+            <ion-back-button (click)="suppressDataProtection()" text=""
+                             icon="checkbox"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{'DATA_PROTECTION.TITLE' | translate}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+    <div scrollY="true" style="overflow-y: auto; max-height: 50%;" [innerHTML]="'DATA_PROTECTION.TEXT' | translate"
+         class="plaintext"></div>
+    <ion-list style="box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.25);">
+        <ion-item>
+            <ion-label [innerHTML]="'DATA_PROTECTION.AGREEMENT_TEXT' | translate" class="plaintext"
+                       text-wrap></ion-label>
+        </ion-item>
+        <ion-item text-wrap lines="none">
+            <ion-label [innerHTML]="'DATA_PROTECTION.AGREEMENT_LBL' | translate"></ion-label>
+            <ion-checkbox [(ngModel)]="agreement" (ionChange)="suppressDataProtection()"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+</ion-content>

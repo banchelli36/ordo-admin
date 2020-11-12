@@ -1,0 +1,122 @@
+<ion-header translucent>
+    <ion-toolbar color="light" mode="md">
+        <ion-buttons slot="secondary">
+            <ion-button (click)="authService.logout()">
+                <div>
+                    <ion-icon name="log-out"></ion-icon>
+                    <ion-label>{{ 'PROFILE.LOGOUT_BTN' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            {{ 'PROFILE.TITLE' | translate }}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="pageUtils.showHelp(translate.instant('HELP.PROFILE_TEXT'))">
+                <div>
+                    <ion-icon name="help-circle"></ion-icon>
+                    <ion-label>{{ 'PROFILE.HELP_BTN' | translate }}</ion-label>
+                </div>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-fab horizontal="end" slot="fixed" vertical="top">
+        <ion-fab-button (click)="save()" [disabled]="!profileFormGroup.valid" color="primary">
+            <ion-icon name="save"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <form [formGroup]="profileFormGroup">
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.MAIL_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="email" [formControl]="mailCtrl"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.GENDER_LBL' | translate}}
+            </ion-label>
+            <ion-select placeholder="{{ 'GENERAL.ONE_SELECT_LBL' | translate }}"
+                        [formControl]="genderCtrl"
+                        cancelText="{{'GENERAL.CANCEL_BTN' | translate}}"
+                        okText="{{'GENERAL.CONFIRM_BTN' | translate}}">
+                <ion-select-option value="f">{{'GENERAL.FEMALE_LBL' | translate}}</ion-select-option>
+                <ion-select-option value="m">{{'GENERAL.MALE_LBL' | translate}}</ion-select-option>
+                <ion-select-option value="d">{{'GENERAL.MISCELLANEOUS_LBL' | translate}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.AGE_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="number" [formControl]="ageCtrl"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.PERSONAL_STATUS_LBL' | translate}}
+            </ion-label>
+            <ion-select placeholder="{{ 'GENERAL.ONE_SELECT_LBL' | translate }}"
+                        [formControl]="statusCtrl"
+                        cancelText="{{'GENERAL.CANCEL_BTN' | translate}}"
+                        okText="{{'GENERAL.CONFIRM_BTN' | translate}}">
+                <ion-select-option value="ledig">{{'GENERAL.SINGLE_LBL' | translate}}</ion-select-option>
+                <ion-select-option value="verheiratet">{{'GENERAL.MARRIED_LBL' | translate}}</ion-select-option>
+                <ion-select-option
+                        value="in Partnerschaft lebend">{{'GENERAL.UNION_LBL' | translate}}</ion-select-option>
+                <ion-select-option value="geschieden">{{'GENERAL.DIVORCED_LBL' | translate}}</ion-select-option>
+                <ion-select-option value="verwitwet">{{'GENERAL.WIDOWED_LBL' | translate}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.ZIPCODE_LBL' | translate}}
+            </ion-label>
+            <ion-input [formControl]="zipcodeCtrl" clearInput type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.NET_INCOME_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="number" [formControl]="netIncomeCtrl"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.EXPENSES_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="number" [formControl]="expensesCtrl"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.SHARES_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="number" [formControl]="sharesCtrl"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.BONDS_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="number" [formControl]="bondsCtrl"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.PASSWORD_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="password" [formControl]="passwordCtrl"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                {{'GENERAL.PASSWORD_REPEAT_LBL' | translate}}
+            </ion-label>
+            <ion-input clearInput type="password" [formControl]="password2Ctrl"></ion-input>
+        </ion-item>
+        <ion-button (click)="showDataProtection()" class="subButton" expand="block" fill="clear">
+            {{'DATA_PROTECTION.TITLE' | translate}}
+        </ion-button>
+    </form>
+    <ion-item lines="none">
+        <ion-note slot="end">{{'GENERAL.VERSION_LBL' | translate}}: {{this.version}}</ion-note>
+    </ion-item>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "ocr-fs-neu",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

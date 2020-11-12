@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar color="light" mode="md">
+        <ion-title>
+            {{ 'INSTRUCTION.TITLE' | translate }}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="modalCtrl.dismiss()">{{ 'GENERAL.BACK_BTN' | translate }}</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div [innerHTML]="instructionText"
+         class="show-list-numbers-and-dots, plaintext"></div><!-- ADD.REPEAT_SCAN -->
+    <ion-list>
+        <ion-item>
+            <ion-label>{{ 'GENERAL.DO_NOT_SHOW_BTN' | translate }}</ion-label>
+            <ion-checkbox (ionChange)="suppressInstruction()" [(ngModel)]="instruction"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+</ion-content>

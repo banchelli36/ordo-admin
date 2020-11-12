@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar color="light" mode="md">
+        <ion-title>
+            {{ 'PROFILE.HELP_BTN' | translate }}
+        </ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="modalCtrl.dismiss()">{{ 'GENERAL.BACK_BTN' | translate }}</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div style="margin: auto;width: 50%">
+        <a href="https://www.meindirk.de/video">
+            <img src="https://ocrfsstorage.blob.core.windows.net/pub-images/VideoThumbnail.jpg"
+                 alt="{{ 'GENERAL.VIDEO_LBL' | translate }}">
+        </a>
+    </div>
+    <div [innerHTML]="this.helpMsg"
+         class="plaintext"></div>
+</ion-content>
